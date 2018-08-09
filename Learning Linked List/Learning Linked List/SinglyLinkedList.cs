@@ -61,13 +61,16 @@ namespace Learning_Linked_List
             }
         }
 
-        public void Write()
+        public void AddAt(T value, int index)
         {
-            Console.WriteLine(head.item);
-            if (head.Next != null)
+            Count++;
+            SinglyLinkedNode<T> temp = head;
+            for (int i = 0; i < index - 1; i++)
             {
-                Console.WriteLine(head.Next);
+                temp = temp.Next;
             }
+            //temp.Next = new SinglyLinkedNode<T>(value);
+
         }
     }
 }
