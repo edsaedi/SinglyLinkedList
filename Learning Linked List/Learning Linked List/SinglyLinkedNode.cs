@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Learning_Linked_List
 {
-    class SinglyLinkedNode<T>
+    public class SinglyLinkedNode<T>
     {
         public T item { get; set; }
         public SinglyLinkedNode<T> Next { get; set; }

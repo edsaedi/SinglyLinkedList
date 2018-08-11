@@ -10,10 +10,24 @@ namespace Learning_Linked_List
     {
         static void Main(string[] args)
         {
+            #region
+            //TODO: Fix the breaking error in Add After.
+            #endregion
             SinglyLinkedList<int> linkedList = new SinglyLinkedList<int>();
-            linkedList.AddEnd(0);
-            linkedList.AddEnd(1);
-            linkedList.Write();
+            for (int i = 0; i < 10; i++)
+            {
+                linkedList.AddEnd(i);
+            }
+
+            linkedList.Remove(9);
+            //linkedList.AddEnd(25);
+            linkedList.RemoveFirst();
+            linkedList.AddAfter(new SinglyLinkedNode<int>(2), 200);
+            foreach (int number in linkedList)
+            {
+                Console.WriteLine(number);
+            }
+
             Console.ReadKey();
         }
     }
