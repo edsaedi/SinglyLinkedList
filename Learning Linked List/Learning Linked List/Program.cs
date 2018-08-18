@@ -11,7 +11,7 @@ namespace Learning_Linked_List
         static void Main(string[] args)
         {
             #region
-            //TODO: Fix the breaking error in Add After.
+            //TODO: Finish ADD AFTER in Doubly Linked List
             #endregion
             SinglyLinkedList<int> linkedList = new SinglyLinkedList<int>();
             for (int i = 0; i < 10; i++)
@@ -19,11 +19,19 @@ namespace Learning_Linked_List
                 linkedList.AddEnd(i);
             }
 
-            linkedList.Remove(9);
+            DoublyLinkedList<int> doublyLinkedList = new DoublyLinkedList<int>();
+            for (int i = 0; i < 10; i++)
+            {
+                doublyLinkedList.AddEnd(i);
+            }
+
             //linkedList.AddEnd(25);
-            linkedList.RemoveFirst();
-            linkedList.AddAfter(new SinglyLinkedNode<int>(2), 200);
-            foreach (int number in linkedList)
+            doublyLinkedList.AddFront(2);
+
+
+            doublyLinkedList.AddBefore(doublyLinkedList.FindLast(2), 200);
+            doublyLinkedList.RemoveFront();
+            foreach (int number in doublyLinkedList)
             {
                 Console.WriteLine(number);
             }

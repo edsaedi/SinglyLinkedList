@@ -10,7 +10,7 @@ namespace Learning_Linked_List
 
     //Faster for insertion & deletion
     //slower for indexing
-    class SinglyLinkedList<T> : IEnumerable<T>
+    class SinglyLinkedList<T> : IEnumerable<T> where T : IComparable<T>
     {
         SinglyLinkedNode<T> head;
         SinglyLinkedNode<T> tail;
@@ -83,18 +83,14 @@ namespace Learning_Linked_List
         //AddAfter(Node, value)
         public void AddAfter(SinglyLinkedNode<T> node, T value)
         {
-            //var enumerator = GetEnumerator();
-            //if (enumerator.Current.Equals(node))
-            //{
-            //    SinglyLinkedNode<T> temp = new SinglyLinkedNode<T>(node.Next.item);   
-            //}
             SinglyLinkedNode<T> temp = head;
-            while (!temp.Equals(node))
+            while (temp.item.CompareTo(node.item) != 0)
             {
                 temp = temp.Next;
             }
+            Count++;
             var tempNode = new SinglyLinkedNode<T>(value, temp.Next);
-            temp.Next.item = value;
+            temp.Next = tempNode;
         }
 
         public void AddAt(T value, int index)
@@ -112,7 +108,7 @@ namespace Learning_Linked_List
         //Remove(T value)
         public void Remove(T value)
         {
-            if (head.item.Equals(value))
+            if (head.item.CompareTo(value) == 0)
             {
                 head = head.Next;
                 Count--;
@@ -122,7 +118,7 @@ namespace Learning_Linked_List
             //stop on the node before we want to remove
             SinglyLinkedNode<T> temp = head;
 
-            while (!temp.Next.item.Equals(value))
+            while (temp.Next.item.CompareTo(value) != 0)
             {
                 temp = temp.Next;
             }
