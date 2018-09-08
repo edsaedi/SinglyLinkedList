@@ -54,34 +54,40 @@ namespace Learning_Linked_List
 
         public void AddAt(int index, T value)
         {
-            if (index < 0 || index >= Count)
+            if (index < 0 || index > Count)
             {
                 throw new IndexOutOfRangeException();
             }
 
-            var curr = head;
-            for (int i = 0; i < index; i++)
+            if (head == null)
             {
-                curr = curr.Next;
+                head = new DoublyLinkedNode<T>(value);
             }
-
-            var newNode = new DoublyLinkedNode<T>(value, this, curr.Next, curr);
-            if (curr.Next != null)
+            else
             {
-                curr.Next.Previous = newNode;
-            }
-            curr.Next = newNode;
+                var curr = head;
+                for (int i = 0; i < index; i++)
+                {
+                    curr = curr.Next;
+                }
 
-            if (index == 0)
-            {
-                head = newNode;
-            }
+                var newNode = new DoublyLinkedNode<T>(value, this, curr.Next, curr);
+                if (curr.Next != null)
+                {
+                    curr.Next.Previous = newNode;
+                }
+                curr.Next = newNode;
 
-            if (index == Count - 1)
-            {
-                tail = newNode;
-            }
+                if (index == 0)
+                {
+                    head = newNode;
+                }
 
+                if (index == Count - 1)
+                {
+                    tail = newNode;
+                }
+            }
 
             Count++;
         }

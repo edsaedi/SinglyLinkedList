@@ -29,7 +29,7 @@ namespace Learning_Linked_List
             doublyLinkedList.AddFront(2);
 
 
-            doublyLinkedList.AddBefore(doublyLinkedList.FindLast(2), 200);
+            //doublyLinkedList.AddAfter(doublyLinkedList.FindLast(2), 200);
             doublyLinkedList.RemoveFront();
             foreach (int number in doublyLinkedList)
             {

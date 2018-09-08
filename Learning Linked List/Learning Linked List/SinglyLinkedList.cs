@@ -10,7 +10,7 @@ namespace Learning_Linked_List
 
     //Faster for insertion & deletion
     //slower for indexing
-    class SinglyLinkedList<T> : IEnumerable<T> where T : IComparable<T>
+    public class SinglyLinkedList<T> : IEnumerable<T> where T : IComparable<T>
     {
         SinglyLinkedNode<T> head;
         SinglyLinkedNode<T> tail;
@@ -30,7 +30,7 @@ namespace Learning_Linked_List
                 {
                     curr = curr.Next;
                 }
-                return curr.item;
+                return curr.Item;
             }
         }
 
@@ -81,58 +81,87 @@ namespace Learning_Linked_List
         }
 
         //AddAfter(Node, value)
-        public void AddAfter(SinglyLinkedNode<T> node, T value)
+        public bool AddAfter(SinglyLinkedNode<T> node, T value)
         {
             SinglyLinkedNode<T> temp = head;
-            while (temp.item.CompareTo(node.item) != 0)
+
+            if (temp == null)
+            {
+                return false;
+            }
+
+            while (temp.Item.CompareTo(node.Item) != 0)
             {
                 temp = temp.Next;
             }
             Count++;
             var tempNode = new SinglyLinkedNode<T>(value, temp.Next);
             temp.Next = tempNode;
+            return true;
         }
 
-        public void AddAt(T value, int index)
+        public bool AddAt(T value, uint index)
         {
-            Count++;
             SinglyLinkedNode<T> temp = head;
+
+            /*if (index == 0)
+            {
+                head = new SinglyLinkedNode<T>(value, temp.Next);
+            }*/
+
+            if (temp == null)
+            {
+                return false;
+            }
+
             for (int i = 0; i < index - 1; i++)
             {
                 temp = temp.Next;
             }
             var node = new SinglyLinkedNode<T>(value, temp.Next);
             temp.Next = node;
+            Count++;
+            return true;
         }
 
         //Remove(T value)
-        public void Remove(T value)
+        public bool Remove(T value)
         {
-            if (head.item.CompareTo(value) == 0)
+            if (head == null)
+            {
+                return false;
+            }
+
+            if (head.Item.CompareTo(value) == 0)
             {
                 head = head.Next;
                 Count--;
-                return;
+                return true;
             }
 
             //stop on the node before we want to remove
             SinglyLinkedNode<T> temp = head;
 
-            while (temp.Next.item.CompareTo(value) != 0)
+            while (temp.Next.Item.CompareTo(value) != 0)
             {
                 temp = temp.Next;
             }
             //link AROUND the node
             temp.Next = temp.Next.Next;
             Count--;
+            return true;
         }
 
         //RemoveFirst()
-        public void RemoveFirst()
+        public bool RemoveFirst()
         {
+            if (head == null)
+            {
+                return false;
+            }
             head = head.Next;
             Count--;
-            return;
+            return true;
         }
 
         //Clear
@@ -147,7 +176,7 @@ namespace Learning_Linked_List
             SinglyLinkedNode<T> current = head;
             while (current != null)
             {
-                yield return current.item;
+                yield return current.Item;
                 current = current.Next;
             }
         }
