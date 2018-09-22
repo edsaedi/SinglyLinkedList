@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Learning_Linked_List
 {
+    //make this circular
     public class DoublyLinkedList<T> : IEnumerable where T : IComparable<T>
     {
         private DoublyLinkedNode<T> head;
@@ -21,6 +22,21 @@ namespace Learning_Linked_List
             Count = 0;
             head = null;
             tail = null;
+        }
+
+        public DoublyLinkedNode<T> GetNodeAt(int index)
+        {
+            if (index < 0 || index >= Count)
+            {
+                return null;
+            }
+
+            var curr = head;
+            for (int i = 0; i < index; i++)
+            {
+                curr = curr.Next;
+            }
+            return curr;
         }
 
         public void AddEnd(T value)
@@ -48,6 +64,7 @@ namespace Learning_Linked_List
             else
             {
                 head = new DoublyLinkedNode<T>(value, this, head);
+                head.Next.Previous = head;
             }
             Count++;
         }
@@ -59,9 +76,13 @@ namespace Learning_Linked_List
                 throw new IndexOutOfRangeException();
             }
 
-            if (head == null)
+            if (head == null || index == 0)
             {
-                head = new DoublyLinkedNode<T>(value);
+                AddFront(value);
+            }
+            else if (index == Count)
+            {
+                AddEnd(value);
             }
             else
             {
@@ -71,22 +92,14 @@ namespace Learning_Linked_List
                     curr = curr.Next;
                 }
 
-                var newNode = new DoublyLinkedNode<T>(value, this, curr.Next, curr);
-                if (curr.Next != null)
-                {
-                    curr.Next.Previous = newNode;
-                }
-                curr.Next = newNode;
+                var prev = curr.Previous;
+                var newNode = new DoublyLinkedNode<T>(value, this, curr, curr.Previous);
 
-                if (index == 0)
+                if (prev != null)
                 {
-                    head = newNode;
+                    prev.Next = newNode;
                 }
-
-                if (index == Count - 1)
-                {
-                    tail = newNode;
-                }
+                curr.Previous = newNode;
             }
 
             Count++;
@@ -133,6 +146,24 @@ namespace Learning_Linked_List
 
         public bool Remove(DoublyLinkedNode<T> node)
         {
+            if (node == head)
+            {
+                node.Next.Previous = null;
+                head = node.Next;
+            }
+            else if (node == tail)
+            {
+                node.Previous.Next = null;
+                tail = node.Previous;
+            }
+            else
+            {
+                node.Previous.Next = node.Next;
+                node.Next.Previous = node.Previous;
+                node.Previous = null;
+                node.Next = null;
+            }
+            Count--;
             return false;
         }
 
