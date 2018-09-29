@@ -146,24 +146,33 @@ namespace Learning_Linked_List
 
         public bool Remove(DoublyLinkedNode<T> node)
         {
-            if (node == head)
+            if (node == null)
+            {
+                return false;
+            }
+            else if (node == head)
             {
                 node.Next.Previous = null;
                 head = node.Next;
+                Count--;
+                return true;
             }
             else if (node == tail)
             {
                 node.Previous.Next = null;
                 tail = node.Previous;
+                Count--;
+                return true;
             }
-            else
+            else if (this == node.List)
             {
                 node.Previous.Next = node.Next;
                 node.Next.Previous = node.Previous;
                 node.Previous = null;
                 node.Next = null;
+                Count--;
+                return true;
             }
-            Count--;
             return false;
         }
 
@@ -173,7 +182,8 @@ namespace Learning_Linked_List
             {
                 return false;
             }
-            head = new DoublyLinkedNode<T>(head.Next.item, this, head.Next);
+            head = new DoublyLinkedNode<T>(head.Next.item, this, head.Next, null);
+            Count--;
             return true;
         }
 
