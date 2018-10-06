@@ -182,7 +182,18 @@ namespace Learning_Linked_List
             {
                 return false;
             }
-            head = new DoublyLinkedNode<T>(head.Next.item, this, head.Next, null);
+            head = new DoublyLinkedNode<T>(head.Next.item, this, head.Next.Next, null);
+            Count--;
+            return true;
+        }
+
+        public bool RemoveEnd()
+        {
+            if (tail.item == null)
+            {
+                return false;
+            }
+            tail = new DoublyLinkedNode<T>(tail.Previous.item, this, tail.Previous.Previous, null);
             Count--;
             return true;
         }

@@ -81,7 +81,7 @@ namespace LinkedListTesting
             DoublyLinkedList<int> list = new DoublyLinkedList<int>();
             for (int i = data.Length - 1; i >= 0; i--)
             {
-                list.AddFront(data[i]);
+                list.AddEnd(data[i]);
             }
 
             var temp = list;
@@ -112,22 +112,49 @@ namespace LinkedListTesting
                 list.AddEnd(data[i]);
             }
 
-            var temp = list;
-            list.Remove(new DoublyLinkedNode<int>(4, null, null));
             list.RemoveFront();
 
-            var listNum = list.Head;
-            foreach (int num in temp)
+            int j = 0;
+            foreach (int num in list)
             {
-                if (num == temp.Head.item)
+                if (num == data[j])
                 {
                     Assert.True(true);
                 }
                 else
                 {
-                    Assert.True(num == listNum.item);
-                    listNum = listNum.Next;
+                    j++;
+                    Assert.True(num == data[j]);
                 }
+                j++;
+            }
+        }
+
+        [Theory]
+        [InlineData(new object[] { new int[] { 1, 2, 3 } })]
+        public void RemoveEnd(int[] data)
+        {
+            DoublyLinkedList<int> list = new DoublyLinkedList<int>();
+            for (int i = 0; i < data.Length; i++)
+            {
+                list.AddEnd(data[i]);
+            }
+
+            list.RemoveEnd();
+
+            int j = 0;
+            foreach (int num in list)
+            {
+                if (num == data[j])
+                {
+                    Assert.True(true);
+                }
+                else
+                {
+                    j++;
+                    Assert.True(num == data[j]);
+                }
+                j++;
             }
         }
     }
